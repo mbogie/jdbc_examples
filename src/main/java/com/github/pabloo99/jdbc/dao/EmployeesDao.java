@@ -51,11 +51,11 @@ public class EmployeesDao {
 
                 employee.setSalary(rs.getDouble("salary"));
 
-                employee.setCommissionPct(rs.getDouble("ommission_Pct"));
+                employee.setCommissionPct(rs.getDouble("commission_Pct"));
 
                 employee.setManagerId(rs.getInt("manager_id"));
 
-                employee.setDepartmentId(rs.getInt("departmentId"));
+                employee.setDepartmentId(rs.getInt("department_Id"));
 
 
                 allEmployees.add(employee);

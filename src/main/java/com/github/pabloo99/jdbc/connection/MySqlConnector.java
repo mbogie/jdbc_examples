@@ -22,7 +22,7 @@ public class MySqlConnector {
 
         try {
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/hr4", "pmazur", "pmazur");
+                    "jdbc:mysql://localhost:3306/hr4?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "pmazur", "pmazur");
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
         }
