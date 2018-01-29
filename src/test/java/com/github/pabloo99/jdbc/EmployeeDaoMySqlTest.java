@@ -6,7 +6,10 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import static org.testng.Assert.assertEquals;
 
 public class EmployeeDaoMySqlTest {
 
@@ -16,9 +19,33 @@ public class EmployeeDaoMySqlTest {
     public void shouldReturnAllEmployees(){
         EmployeesDao employeesDao = new EmployeesDao();
 
-        List<Employee> result = employeesDao.findAll();
+        List<Employee> result = null;
+
+        try {
+            result = employeesDao.findAll();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
 
         Assert.assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void shouldReturnEmployeeDataForEmployeeWithId(){
+
+        EmployeesDao employeesDao = new EmployeesDao();
+
+        Employee result = null;
+
+        try {
+            result = employeesDao.findById(100);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        assertEquals(result.getFirstName(), "Steven");
+        assertEquals(result.getLastName(), "King");
+        assertEquals(result.getEmployeeId(), 100);
     }
 
 }
