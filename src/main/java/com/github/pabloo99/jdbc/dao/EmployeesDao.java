@@ -136,7 +136,7 @@ public class EmployeesDao {
     public int save(Employee emp) throws SQLException {
         String query = "INSERT INTO employees(employee_id, first_name, last_name," +
                 " hire_date, email, phone_number,job_id, manager_id, " +
-                "department_id, salary,commision_pct) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                "department_id, salary,commission_pct) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -149,8 +149,18 @@ public class EmployeesDao {
             statement.setInt(1, emp.getEmployeeId());
             statement.setString(2, emp.getFirstName());
             statement.setString(3, emp.getLastName());
+            statement.setDate(4, Date.valueOf(emp.getHireDate()));
+            statement.setString(5, emp.getEmail());
+            statement.setString(6, emp.getPhoneNumber());
+            statement.setString(7, emp.getJobId());
+            statement.setInt(8, emp.getManagerId());
+            statement.setInt(9, emp.getDepartmentId());
+            statement.setDouble(10, emp.getSalary());
+            statement.setDouble(11, emp.getCommissionPct());
 
-            return statement.executeUpdate();
+            int result = statement.executeUpdate();
+
+            return result;
 
         } catch (SQLException e) {
 
@@ -164,5 +174,33 @@ public class EmployeesDao {
         return 0;
     }
 
+    public int delete(int employeeId) throws SQLException {
+        String query = "DELETE FROM employees WHERE employee_id = ?";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = MySqlConnector.getMySqlConnection();
+
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, employeeId);
+
+            int result = statement.executeUpdate();
+
+            return result;
+
+        } catch (SQLException e) {
+
+            logger.error(e.getMessage(), e);
+
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return 0;
+    }
 
 }

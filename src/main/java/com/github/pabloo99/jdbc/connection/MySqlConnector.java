@@ -21,8 +21,12 @@ public class MySqlConnector {
         }
 
         try {
-            return DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/hr4?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "pmazur", "pmazur");
+
+            connection.setAutoCommit(true);
+            
+            return connection;
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
         }
