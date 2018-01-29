@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class EmployeeDaoMySqlTest {
 
@@ -79,4 +80,25 @@ public class EmployeeDaoMySqlTest {
         Assert.assertEquals(deletedRecords, 1);
     }
 
+    @Test
+    public void shouldUpdateSalary(){
+        EmployeesDao employeesDao = new EmployeesDao();
+
+        Employee employeeBeforeUpdate = null;
+        Employee employeeAfterUpdate = null;
+
+        try {
+            employeeBeforeUpdate = employeesDao.findById(100);
+            employeesDao.updateSalary(100, 25000);
+
+            employeeAfterUpdate = employeesDao.findById(100);
+
+            employeesDao.updateSalary(100, 24000);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        assertTrue(employeeBeforeUpdate.getSalary() == 24000);
+        assertTrue(employeeAfterUpdate.getSalary() == 25000);
+    }
 }

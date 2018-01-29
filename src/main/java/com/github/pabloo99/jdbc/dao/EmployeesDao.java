@@ -203,4 +203,40 @@ public class EmployeesDao {
         return 0;
     }
 
+    public void updateSalary(int id, double salary) throws SQLException {
+
+        String query = "update employees set SALARY = ? where employee_id = ?";
+
+
+        Connection connection = null;
+
+        PreparedStatement statement = null;
+
+
+        try {
+
+            connection = MySqlConnector.getMySqlConnection();
+
+            statement = connection.prepareStatement(query);
+
+            statement.setInt(2, id);
+
+            statement.setDouble(1, salary);
+
+            statement.executeUpdate();
+
+
+        } catch (SQLException e) {
+
+            logger.error(e.getMessage(), e);
+
+        } finally {
+
+            statement.close();
+
+            connection.close();
+
+        }
+    }
+
 }
