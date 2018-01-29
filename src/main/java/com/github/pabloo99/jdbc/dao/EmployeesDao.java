@@ -132,4 +132,37 @@ public class EmployeesDao {
 
         return employee;
     }
+
+    public int save(Employee emp) throws SQLException {
+        String query = "INSERT INTO employees(employee_id, first_name, last_name," +
+                " hire_date, email, phone_number,job_id, manager_id, " +
+                "department_id, salary,commision_pct) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = MySqlConnector.getMySqlConnection();
+
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, emp.getEmployeeId());
+            statement.setString(2, emp.getFirstName());
+            statement.setString(3, emp.getLastName());
+
+            return statement.executeUpdate();
+
+        } catch (SQLException e) {
+
+            logger.error(e.getMessage(), e);
+
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+        return 0;
+    }
+
+
 }
