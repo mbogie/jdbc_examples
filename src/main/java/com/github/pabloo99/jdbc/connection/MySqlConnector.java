@@ -22,7 +22,7 @@ public class MySqlConnector {
 
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/hr4?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "pmazur", "pmazur");
+                    "jdbc:mysql://localhost:3306/hr?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&useSSL=true&serverTimezone=UTC", "root", "4ihdklk");
 
             connection.setAutoCommit(true);
             
